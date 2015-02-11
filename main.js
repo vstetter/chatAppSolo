@@ -3,7 +3,7 @@ $(document).ready(function(){
   chatter.init();
 
 // to delete bad data uncomment out this line and put in correct id from server
- // chatter.deleteMessage('54da9b8505ebf4030000007b');
+// chatter.deleteMessage('54dbb6a21d5f6803000000c8');
 
 
 });
@@ -13,6 +13,8 @@ var chatter = {
 init: function () {
   chatter.initStyling();
   chatter.initEvents();
+  //
+  // setInterval(chatter.renderMessage, 1000);
 },
 
 initStyling: function () {
@@ -23,6 +25,8 @@ initStyling: function () {
 
 initEvents: function () {
 
+//create user on login:
+
 $('.createUser').on('submit', function(event) {
   event.preventDefault();
 
@@ -32,6 +36,18 @@ $('.createUser').on('submit', function(event) {
   chatter.createUser(newUser);
 
 });
+
+//delete user on logout:
+
+$('.userList').on('click', '.logout', function(event) {
+  event.preventDefault();
+  var userId = $(this).closest('li').data('userid');
+  chatter.deleteUser(userId);
+
+});
+
+
+//create message on submit:
 
 $('.createMessage').on('submit', function(event) {
   event.preventDefault();
@@ -49,6 +65,26 @@ $('.createMessage').on('submit', function(event) {
 });
 
 //delete message on click
+$('.chatArea').on('click', '.deleteMsg', function(event) {
+  event.preventDefault();
+
+  // if user id on msg === user id in local storage, do it
+  //  otherwise: send alert
+  
+  var msgId = $(this).closest('article').data('chatid');
+  var msgUserID = $(this).closest('article').data('userid');
+  var userInfoParse = JSON.parse(localStorage.getItem('userInfo'));
+  var localStorageUserID = userInfoParse._id;
+  console.log(msgId);
+  console.log(msgUserID);
+  console.log(localStorageUserID);
+  if (msgUserID === localStorageUserID) {
+  chatter.deleteMessage(msgId);
+  } else {
+  alert("You cannot delete other users' messages.")
+  }
+
+});
 
 
 
@@ -101,7 +137,29 @@ createUser: function (user) {
 
 //edit user
 
+
+
+
 //logout user
+
+deleteUser: function (userId) {
+  $.ajax({
+    url: chatter.config.url,
+    type: 'DELETE',
+    success: function (data) {
+      localStorage.removeItem('userInfo');
+      $('#userLogIn').val("");
+      console.log('logout worked');
+      chatter.renderUser();
+
+    },
+    error: function (err) {
+      console.log(err);
+    }
+
+  });
+
+},
 
 
 //message:
@@ -115,7 +173,7 @@ renderMessage: function() {
     type: 'GET',
     success: function(chatter) {
       console.log(chatter);
-      var template = _.template(templates.messageTmpl);   //check template - error message says userMessage not defined
+      var template = _.template(templates.messageTmpl);   //check template - error message says userId not defined
       var markup="";
       chatter.forEach(function(item, index, array){
         markup += template(item);
@@ -153,26 +211,21 @@ createMessage: function (userMessage) {
 
 },
 
-// deleteMessage: function (_id, userId) {
-//   console.log(userId, "currentUser" )  //check: userId from messageTmpl? where does currentUser in Val/Chris work come from?
-//   console.log(localStorage.userName, "localStorage.userName"); //check!! Val/Chris
-//   if (userId === localStorage.userName) {    //check
-//   $.ajax({
-//     url: chatter.config.url + '/' + _id,
-//     type: 'DELETE',
-//     success: function (data) {
-//       console.log (data);
-//       chatter.renderMessage();
-//     },
-//     error: function (err) {
-//       console.log(err);
-//     }
-//   });
-// }
-//  else {
-//     alert ("You are not able to delete other users' messages")
-//   }
-// }
+deleteMessage: function (_id) {
+
+   $.ajax({
+     url: chatter.config.url + '/' + _id,
+     type: 'DELETE',
+     success: function (data) {
+       console.log (data);
+       chatter.renderMessage();
+     },
+    error: function (err) {
+      console.log(err);
+    }
+  });
+}
+
 
 };
 
