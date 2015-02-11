@@ -1,0 +1,32 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: helvetica; }
+
+h1 {
+  text-align: center;
+  font-size: 4em;
+  font-weight: 300;
+  color: lightgrey; }
+
+.wrapper {
+  width: 80%;
+  margin: 0 auto; }
+
+.container {
+  display: inline-block;
+  vertical-align: top; }
+  .container .chatArea {
+    width: 75%; }
+  .container .userList {
+    width: 25%; }
+    .container .userList li {
+      list-style-type: none; }
+
+.form-control {
+  height: 40px;
+  font-size: 20px; }
+
+p {
+  font-size: 20px;
+  font-weight: 300; }

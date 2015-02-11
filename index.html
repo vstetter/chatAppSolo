@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>chatApp2</title>
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+</head>
+
+<header>
+<h1>chatTer</h1>
+</header>
+
+<body>
+  <div class=wrapper>
+
+<!--User sign-in section -->
+    <div class="row">
+      <form action="" class="createUser">
+        <p>
+          <input type="text" class="form-control" name="logInName" placeholder="type your user name here">
+          <button type="submit" class="btn btn-default">Log in</button>
+        </p>
+      </form>
+    </div>
+
+<!--Main chat message section-->
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8">
+          <div class="chatArea">
+            <p><!--this is where the chat messages will show up--></p>
+
+          </div>
+        </div>
+<!--Logged in users section-->
+        <div class="col-md-4">
+          <div class="userList">
+          </div>
+        </div>
+      </div>
+    </div>
+<!--Type message here section-->
+    <div class="row">
+      <div class="col-md-12">
+        <div class="sendMessage">
+          <form action="" class="createMessage">
+            <p>
+              <input type="text" class="form-control" id =" userSendMessage" name="userMessage" placeholder="type your message here">
+              <button type="submit" class="btn btn-default">Send</button>
+            </p>
+          </form>
+        </div>
+      </div>
+    </div>
+
+
+</div> <!--end of .wrapper-->
+
+<script src="bower_components/jquery/dist/jquery.js"></script>
+<script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+<script src="bower_components/underscore/underscore.js"></script>
+<script src="templates.js"></script>
+<script src="main.js"></script>
+</body>
+</html>
