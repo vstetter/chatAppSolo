@@ -4,12 +4,13 @@
   <meta charset="UTF-8">
   <title>chatApp2</title>
   <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
-  <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="styles.css">
+
 </head>
 
 <header>
-<h1>chatTer</h1>
+<h1>chatter</h1>
 </header>
 
 <body>
@@ -17,25 +18,27 @@
 
 <!--User sign-in section -->
     <div class="row">
-      <form action="" class="createUser">
-        <p>
-          <input type="text" class="form-control" id="userLogIn" name="logInName" placeholder="type your user name here">
-          <button type="submit" class="btn btn-default">Log in</button>
-        </p>
-      </form>
+      <div class="col-md-12">
+        <form action="" class="createUser">
+          <p>
+            <input type="text" class="form-control" id="userLogIn" name="logInName" placeholder="type your user name here">
+            <button id="newUserSubmit" type="submit" class="btn btn-default">Log in</button>
+          </p>
+        </form>
+      </div>
     </div>
 
 <!--Main chat message section-->
     <div class="container">
       <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-9">
           <div class="chatArea">
             <p><!--this is where the chat messages will show up--></p>
 
           </div>
         </div>
 <!--Logged in users section-->
-        <div class="col-md-4">
+        <div class="col-md-3">
           <div class="userList">
           </div>
         </div>

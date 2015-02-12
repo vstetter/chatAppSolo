@@ -3,7 +3,7 @@ $(document).ready(function(){
   chatter.init();
 
 // to delete bad data uncomment out this line and put in correct id from server
-// chatter.deleteMessage('54dbb6a21d5f6803000000c8');
+// chatter.deleteMessage('54dbc8461d5f6803000000ea');
 
 
 });
@@ -14,7 +14,8 @@ init: function () {
   chatter.initStyling();
   chatter.initEvents();
   //
-  // setInterval(chatter.renderMessage, 1000);
+  // setInterval(chatter.renderMessage, 2000);
+  // setInterval(chatter.renderUser, 2000);
 },
 
 initStyling: function () {
@@ -68,9 +69,9 @@ $('.createMessage').on('submit', function(event) {
 $('.chatArea').on('click', '.deleteMsg', function(event) {
   event.preventDefault();
 
-  // if user id on msg === user id in local storage, do it
+  // if user id on msg === user id in local storage, delete
   //  otherwise: send alert
-  
+
   var msgId = $(this).closest('article').data('chatid');
   var msgUserID = $(this).closest('article').data('userid');
   var userInfoParse = JSON.parse(localStorage.getItem('userInfo'));
@@ -91,14 +92,14 @@ $('.chatArea').on('click', '.deleteMsg', function(event) {
 },
 
 config: {
-  url:'http://tiy-fee-rest.herokuapp.com/collections/chatter'
+  url:'http://tiy-fee-rest.herokuapp.com/collections'
 },
 
 
 //user:
 renderUser: function () {
   $.ajax({
-      url: chatter.config.url,
+      url: chatter.config.url + '/chatterUser',
       type: 'GET',
       success: function (chatter) {
         var template= _.template(templates.userList);
@@ -118,7 +119,7 @@ renderUser: function () {
 
 createUser: function (user) {
   $.ajax({
-    url: chatter.config.url,
+    url: chatter.config.url + '/chatterUser',
     data: user,
     type: 'POST',
     success: function (data) {
@@ -142,9 +143,9 @@ createUser: function (user) {
 
 //logout user
 
-deleteUser: function (userId) {
+deleteUser: function (_id) {
   $.ajax({
-    url: chatter.config.url,
+    url: chatter.config.url + '/chatterUser' + '/' + _id,
     type: 'DELETE',
     success: function (data) {
       localStorage.removeItem('userInfo');
@@ -166,10 +167,9 @@ deleteUser: function (userId) {
 
 
 renderMessage: function() {
-  //if userId from local Storage is not the same as userId associated with message, don't render message ?
-  //otherwise:
+
   $.ajax({
-    url: chatter.config.url,
+    url: chatter.config.url + '/chatterMessage',
     type: 'GET',
     success: function(chatter) {
       console.log(chatter);
@@ -193,8 +193,7 @@ renderMessage: function() {
 
 createMessage: function (userMessage) {
   $.ajax({
-    url: chatter.config.url,
-    // userName: "userId",  check: see Val's code
+    url: chatter.config.url + '/chatterMessage',
     data: userMessage,
     type: 'POST',
     success: function (data) {
@@ -214,7 +213,7 @@ createMessage: function (userMessage) {
 deleteMessage: function (_id) {
 
    $.ajax({
-     url: chatter.config.url + '/' + _id,
+     url: chatter.config.url + '/chatterMessage' + '/' + _id,
      type: 'DELETE',
      success: function (data) {
        console.log (data);

@@ -1,4 +1,4 @@
-body {
+body, h1, h3, span, p, li, a {
   margin: 0;
   padding: 0;
   font-family: helvetica; }
@@ -7,13 +7,21 @@ h1 {
   text-align: center;
   font-size: 4em;
   font-weight: 300;
-  color: lightgrey; }
+  color: lightgrey;
+  padding: 1em; }
 
 .wrapper {
   width: 80%;
   margin: 0 auto; }
 
+button.deleteMsg {
+  padding: 0.5em;
+  margin-left: 1 em; }
+
 .container {
+  width: 100%;
+  min-height: 200px;
+  margin: 2em auto;
   display: inline-block;
   vertical-align: top; }
   .container .chatArea {
@@ -23,10 +31,20 @@ h1 {
     .container .userList li {
       list-style-type: none; }
 
+span {
+  font-size: 0.75em;
+  color: cornflowerblue; }
+
 .form-control {
   height: 40px;
-  font-size: 20px; }
+  font-size: 1.2em; }
 
 p {
-  font-size: 20px;
+  font-size: 1.5em;
   font-weight: 300; }
+
+h3 {
+  font-size: 1.5em; }
+  h3 a {
+    color: cornflowerblue;
+    font-size: 0.75em; }
